@@ -1,53 +1,22 @@
-class Celda:
-	def __init__ (self, valor=nada):
-		self.valor = valor
+#include <iostream>
 
-class Fila:
-	
-	def __init__ (self, array):
-		self.array = array
-
-	def mostrarceldas (self):
-		for i in self.array:
-			print ( i.valor )
-
-class Piramide:
-
-	def __init__ (self, filas):
-		self.filas =  filas
+using namespace std;
+class Celda{
+    public:
+        Celda(int _x=0, int _y=0){
+            x = _x; y = _y;
+        }
+        int valor, x, y;
+};
 
 
+int main()
+{
+    cout << "Piramide" << endl;
+    Celda pyr[6][6];
+    for(int y = 0; y < 6; y++)
+        for(int x = 0; x <= y; x++ )
+            pyr[x][y] = Celda(x,y);
 
-
-
-celda1 = Celda();
-celda2 = Celda();
-celda3 = Celda();
-celda4 = Celda();
-celda5 = Celda();
-celda6 = Celda();
-celda7 = Celda();
-celda8 = Celda();
-celda9 = Celda();
-celda10 = Celda();
-celda11 = Celda();
-celda12 = Celda();
-celda13 = Celda();
-celda14 = Celda();
-celda15 = Celda();
-celda16 = Celda();
-celda17 = Celda();
-celda18 = Celda();
-celda19 = Celda();
-celda20 = Celda();
-celda21 = Celda();
-
-
-Fila1 = Fila([celda1]);
-Fila2 = Fila ([celda2, celda3]);
-Fila3 = Fila ([celda4, celda5, celda6]);
-Fila4 = Fila ([celda7, celda8, celda9, celda10]);
-Fila5 = Fila ([celda11, celda12, celda13, celda14, celda15]);
-Fila6 = Fila ([celda16, celda17, celda18, celda19, celda20, celda21]);
-
-Piramide1 = Piramide ([Fila1, Fila2, Fila3, Fila4, Fila5, Fila6]);
+    return 0;
+}

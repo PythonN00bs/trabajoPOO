@@ -7,6 +7,16 @@ class Celda{
             x = _x; y = _y;
         }
         int valor, x, y;
+        
+    public:
+        int setValue (int _valor){
+            valor = _valor;
+        }
+
+        int getValue (){
+            return valor;
+        }    
+        
 };
 
 

@@ -24,31 +24,39 @@ class Celda{
         }
 };
 
-void checkPyramide (Celda pyr[][6]){
-
+void checkPyramid (Celda pyr[][6],int change){
+if(change==1){
+    change=0;
     for(int y = 0; y < 6; y++)
         for(int x = 0; x <= y; x++ )
         {
             if (pyr[x][y].isKnown() == 0 && pyr[x+1][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 1)
             {
                 pyr[x][y-1].setValue(pyr[x][y].valor + pyr[x+1][y].valor);
+                change=1;
             }
             else
             {
-                if (pyr[x][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 1 && pyr[x][y-1].isKnown() == 0)
+                if (pyr[x][y].isKnown() == 0 && pyr[x+1][y].isKnown() == 1 && pyr[x][y-1].isKnown() == 0)
                 {
                     pyr[x+1][y].setValue(pyr[x][y-1].valor - pyr[x][y].valor);
+                    change=1;
                 }
                 else
                 {
-                    if (pyr[x][y].isKnown() == 1 && pyr[x][y-1].isKnown() == 0 && pyr[x][y-1].isKnown() == 0)
+                    if (pyr[x][y].isKnown() == 1 && pyr[x+1][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 0)
                     {
                         pyr[x][y].setValue(pyr[x][y-1].valor - pyr[x+1][y].valor);
+                        change=1;
                     }
                 }
             }
         }
+checkPyramid (pyr,change);
 }
+return;
+}
+
 
 void showPyramid(Celda pyr[][6]){
 char tab='  ';
@@ -65,7 +73,6 @@ for(int y = 0; y < 6; y++){
 cout<<endl;
 }
 
-
 int main()
 {
     cout << "Piramide" << endl;
@@ -74,10 +81,13 @@ int main()
         for(int x = 0; x <= y; x++ )
             pyr[x][y] = Celda(x,y);
 
-    pyr[1][2].setValue (30);
-    pyr[2][2].setValue (10);
-    checkPyramide(pyr);
-    cout << pyr[1][1].valor;
-
+    pyr[5][5].setValue (6);
+    pyr[4][5].setValue (5);
+    pyr[3][5].setValue (4);
+    pyr[2][5].setValue (3);
+    pyr[1][5].setValue (2);
+    pyr[0][5].setValue (1);
+    checkPyramid (pyr,1);
+    showPyramid(pyr);
     return 0;
 }

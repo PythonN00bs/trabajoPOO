@@ -1,13 +1,12 @@
 #include <iostream>
-
 using namespace std;
 class Celda{
     public:
         Celda(int _x=0, int _y=0){
             x = _x; y = _y;
         }
-        int valor, x, y;
-        
+        int valor=NULL, x, y;
+
     public:
         int setValue (int _valor){
             valor = _valor;
@@ -15,10 +14,41 @@ class Celda{
 
         int getValue (){
             return valor;
-        }    
-        
+        }
+
+        int isKnown (){
+            if (valor != NULL)
+                return 0;
+            else
+                return 1;
+        }
 };
 
+void checkPyramide (Celda pyr[][6]){
+
+    for(int y = 0; y < 6; y++)
+        for(int x = 0; x <= y; x++ )
+        {
+            if (pyr[x][y].isKnown() == 0 && pyr[x+1][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 1)
+            {
+                pyr[x][y-1].setValue(pyr[x][y].valor + pyr[x+1][y].valor);
+            }
+            else
+            {
+                if (pyr[x][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 1 && pyr[x][y-1].isKnown() == 0)
+                {
+                    pyr[x+1][y].setValue(pyr[x][y-1].valor - pyr[x][y].valor);
+                }
+                else
+                {
+                    if (pyr[x][y].isKnown() == 1 && pyr[x][y-1].isKnown() == 0 && pyr[x][y-1].isKnown() == 0)
+                    {
+                        pyr[x][y].setValue(pyr[x][y-1].valor - pyr[x+1][y].valor);
+                    }
+                }
+            }
+        }
+}
 
 int main()
 {
@@ -27,6 +57,11 @@ int main()
     for(int y = 0; y < 6; y++)
         for(int x = 0; x <= y; x++ )
             pyr[x][y] = Celda(x,y);
+
+    pyr[1][2].setValue (30);
+    pyr[2][2].setValue (10);
+    checkPyramide(pyr);
+    cout << pyr[1][1].valor;
 
     return 0;
 }

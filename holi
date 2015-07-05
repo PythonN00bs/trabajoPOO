@@ -50,6 +50,22 @@ void checkPyramide (Celda pyr[][6]){
         }
 }
 
+void showPyramid(Celda pyr[][6]){
+char tab='  ';
+for(int y = 0; y < 6; y++){
+        cout<<endl<<endl;
+        for (int j=6; j>y; j--)
+            cout<<tab;
+        for(int x = 0; x <= y; x++ )
+            if (pyr[x][y].valor != NULL)
+                cout<<pyr[x][y].valor<<" ";
+            else
+                cout<<"() ";
+}
+cout<<endl;
+}
+
+
 int main()
 {
     cout << "Piramide" << endl;

@@ -1,0 +1,93 @@
+#include <iostream>
+using namespace std;
+class Celda{
+    public:
+        Celda(int _x=0, int _y=0){
+            x = _x; y = _y;
+        }
+        int valor=NULL, x, y;
+
+    public:
+        int setValue (int _valor){
+            valor = _valor;
+        }
+
+        int getValue (){
+            return valor;
+        }
+
+        int isKnown (){
+            if (valor != NULL)
+                return 0;
+            else
+                return 1;
+        }
+};
+
+void checkPyramid (Celda pyr[][6],int change){
+if(change==1){
+    change=0;
+    for(int y = 0; y < 6; y++)
+        for(int x = 0; x <= y; x++ )
+        {
+            if (pyr[x][y].isKnown() == 0 && pyr[x+1][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 1)
+            {
+                pyr[x][y-1].setValue(pyr[x][y].valor + pyr[x+1][y].valor);
+                change=1;
+            }
+            else
+            {
+                if (pyr[x][y].isKnown() == 0 && pyr[x+1][y].isKnown() == 1 && pyr[x][y-1].isKnown() == 0)
+                {
+                    pyr[x+1][y].setValue(pyr[x][y-1].valor - pyr[x][y].valor);
+                    change=1;
+                }
+                else
+                {
+                    if (pyr[x][y].isKnown() == 1 && pyr[x+1][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 0)
+                    {
+                        pyr[x][y].setValue(pyr[x][y-1].valor - pyr[x+1][y].valor);
+                        change=1;
+                    }
+                }
+            }
+        }
+checkPyramid (pyr,change);
+}
+return;
+}
+
+
+void showPyramid(Celda pyr[][6]){
+char tab='  ';
+for(int y = 0; y < 6; y++){
+        cout<<endl<<endl;
+        for (int j=6; j>y; j--)
+            cout<<tab;
+        for(int x = 0; x <= y; x++ )
+            if (pyr[x][y].valor != NULL)
+                cout<<pyr[x][y].valor<<" ";
+            else
+                cout<<"() ";
+}
+cout<<endl;
+}
+
+int main()
+{
+    cout << "Piramide" << endl;
+    Celda pyr[6][6];
+    for(int y = 0; y < 6; y++)
+        for(int x = 0; x <= y; x++ )
+            pyr[x][y] = Celda(x,y);
+
+    pyr[5][5].setValue (6);
+    pyr[4][5].setValue (5);
+    pyr[3][5].setValue (4);
+    pyr[2][5].setValue (3);
+    pyr[1][5].setValue (2);
+    pyr[0][5].setValue (1);
+    checkPyramid (pyr,1);
+    showPyramid(pyr);
+    return 0;
+}

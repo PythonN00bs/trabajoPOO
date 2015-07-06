@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+
 using namespace std;
 class Celda{
     public:
@@ -57,18 +59,27 @@ checkPyramid (pyr,change);
 return;
 }
 
-
 void showPyramid(Celda pyr[][6]){
-char tab='  ';
+stringstream ss;
 for(int y = 0; y < 6; y++){
         cout<<endl<<endl;
         for (int j=6; j>y; j--)
-            cout<<tab;
+            cout<<"   ";
         for(int x = 0; x <= y; x++ )
             if (pyr[x][y].valor != NULL)
-                cout<<pyr[x][y].valor<<" ";
+            {
+                ss.width(6);
+                ss << pyr[x][y].valor;
+                cout << ss.str();
+                ss.str("");
+            }
             else
-                cout<<"() ";
+            {
+                ss.width(6);
+                ss << "()";
+                cout << ss.str();
+                ss.str("");
+            }
 }
 cout<<endl;
 }

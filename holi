@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <cstdlib>
 
 using namespace std;
 class Celda{
@@ -28,6 +29,7 @@ class Celda{
 class Pyramid{
 public:
     Celda pyr[6][6];
+    int n, fila, posicion, valor;
     Pyramid(){
         for(int y = 0; y < 6; y++)
             for(int x = 0; x <= y; x++ )
@@ -35,13 +37,28 @@ public:
     }
 
     void Setvalues (){
-        pyr[0][5].setValue (6);
-        pyr[1][5].setValue (5);
-        pyr[2][5].setValue (4);
-        pyr[3][5].setValue (3);
-        pyr[4][5].setValue (2);
-        pyr[5][5].setValue (1);
-        pyr[2][4].setValue (8);
+
+        cout << "Ingrese cantidad de datos: ";
+            cin >> n;
+        for (int b = 0; b < n ; ++b){
+
+        cout << "Ingrese numero de fila: ";
+        cin >> fila;
+        cout << "Ingrese posicion: ";
+        cin >> posicion;
+        cout << "Ingrese valor no-negativo: ";
+        cin >> valor;
+
+        if (valor < 0 || fila > 6 || posicion > 6){
+            cout << "Ingrese bien los datos" << endl;
+            b=b-1;
+        }
+        else{
+            pyr[posicion][fila].setValue (valor);
+            system ("pause");
+            system ("cls");
+        }
+        }
     }
 
     void solve ();
@@ -130,10 +147,10 @@ cout<<endl;
 
 int main()
 {
-    cout <<"---------------------------------------------------"<<endl<< "Piramide Inicial" << endl;
-
     Pyramid pyr;
     pyr.Setvalues();
+    cout <<"---------------------------------------------------"<<endl<< "Piramide Inicial" << endl;
+
     pyr.show();
 
     cout<<"---------------------------------------------------";

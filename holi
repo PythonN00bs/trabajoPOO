@@ -36,12 +36,18 @@ public:
                 pyr[x][y] = Celda(x,y);
     }
 
+    void solve ();
+    void show ();
+    int check();
+    int Completed();
+
     void Setvalues (){
 
         cout << "Ingrese cantidad de datos: ";
             cin >> n;
         for (int b = 0; b < n ; ++b){
-
+        show();
+        cout <<"---------------------------------------------------"<<endl;
         cout << "Ingrese numero de fila: ";
         cin >> fila;
         cout << "Ingrese posicion: ";
@@ -61,10 +67,7 @@ public:
         }
     }
 
-    void solve ();
-    void show ();
-    int check();
-    int Completed();
+
 
 };
 

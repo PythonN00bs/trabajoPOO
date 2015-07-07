@@ -38,13 +38,19 @@ for (int a = 0; a < 5; ++a)             //Maximo que se tiene que recorrer la pi
             {
                 if (pyr[x][y].isKnown() == 0 && pyr[x+1][y].isKnown() == 1 && pyr[x][y-1].isKnown() == 0)
                 {
+                    if ((pyr[x][y-1].valor - pyr[x][y].valor)>0)
                         pyr[x+1][y].setValue(pyr[x][y-1].valor - pyr[x][y].valor);
+                    else
+                        break;
                 }
                 else
                 {
                     if (pyr[x][y].isKnown() == 1 && pyr[x+1][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 0)
                     {
+                        if ((pyr[x][y-1].valor - pyr[x+1][y].valor)>0)
                             pyr[x][y].setValue(pyr[x][y-1].valor - pyr[x+1][y].valor);
+                        else
+                            break;
                     }
                 }
             }

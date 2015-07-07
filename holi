@@ -61,10 +61,17 @@ return;
 int checkPyramid (Celda pyr[][6]){
 int vm=0;
 for(int y = 1; y < 6; ++y)
-    for(int x = 0; x <= y; ++x ){
-        if ((pyr[x][y].valor + pyr[x+1][y].valor) != pyr[x][y-1].valor)
+    for(int x = 0; x < y; ++x ){
+        if ((pyr[x][y].valor + pyr[x+1][y].valor) != pyr[x][y-1].valor){
             vm=1;
-    }
+            //cout<<"pyr["<<x<<"]["<<y<<"]  pyr["<<x+1<<"]["<<y<<"]"<<endl;
+            //cout<<pyr[x][y].valor<<"   "<<pyr[x+1][y].valor<<endl;
+            //cout<<"(pyr["<<x<<"]["<<y<<"] + pyr["<<x+1<<"]["<<y<<"])  != pyr["<<x<<"]["<<y-1<<"]"<<endl;
+            //cout<<(pyr[x][y].valor + pyr[x+1][y].valor)<<" != "<<(pyr[x][y-1].valor)<<endl;
+            //cout<<"WEBO"<<endl;
+
+        }
+                }
 return vm;
 }
 
@@ -111,23 +118,27 @@ int main()
         for(int x = 0; x <= y; x++ )
             pyr[x][y] = Celda(x,y);
 
-    pyr[0][0].setValue (52);
-    pyr[0][1].setValue (26);
-    pyr[0][2].setValue (12);
-    pyr[0][3].setValue (5);
-    pyr[0][4].setValue (2);
+    pyr[5][5].setValue (52);
+    pyr[4][5].setValue (26);
+    pyr[3][5].setValue (12);
+    pyr[2][5].setValue (5);
+    pyr[1][5].setValue (2);
     pyr[0][5].setValue (1);
     showPyramid(pyr);
-    
-cout<<"---------------------------------------------------"<<endl;
+
+cout<<"---------------------------------------------------";
 
     solvePyramid(pyr);
+    checkPyramid(pyr);
+    cout<<endl;
     if (checkPyramid(pyr)==1 || CompletedPyramid(pyr)==1)
-        cout << endl << "No se puede resolver";
+        cout << endl << "No se puede resolver"<<endl;
     else
+        cout<<"Piramide Resuelta"<<endl;
         showPyramid(pyr);
-        
+
 cout<<"---------------------------------------------------"<<endl;
 
     return 0;
 }
+

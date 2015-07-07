@@ -25,7 +25,33 @@ class Celda{
         }
 };
 
-void solvePyramid (Celda pyr[][6]){
+class Pyramid{
+public:
+    Celda pyr[6][6];
+    Pyramid(){
+        for(int y = 0; y < 6; y++)
+            for(int x = 0; x <= y; x++ )
+                pyr[x][y] = Celda(x,y);
+    }
+
+    void Setvalues (){
+        pyr[0][5].setValue (6);
+        pyr[1][5].setValue (5);
+        pyr[2][5].setValue (4);
+        pyr[3][5].setValue (3);
+        pyr[4][5].setValue (2);
+        pyr[5][5].setValue (1);
+        pyr[2][4].setValue (8);
+    }
+
+    void solve ();
+    void show ();
+    int check();
+    int Completed();
+
+};
+
+void Pyramid::solve (){
 for (int a = 0; a < 5; ++a)             //Maximo que se tiene que recorrer la piramide para completarla
     for(int y = 0; y < 6; ++y)
         for(int x = 0; x <= y; ++x )
@@ -58,7 +84,7 @@ for (int a = 0; a < 5; ++a)             //Maximo que se tiene que recorrer la pi
 return;
 }
 
-int checkPyramid (Celda pyr[][6]){
+int Pyramid::check (){
 int vm=0;
 for(int y = 1; y < 6; ++y)
     for(int x = 0; x < y; ++x )
@@ -67,7 +93,7 @@ for(int y = 1; y < 6; ++y)
 return vm;
 }
 
-int CompletedPyramid (Celda pyr[][6]){
+int Pyramid::Completed (){
 int verify=0;
 for(int y = 0; y < 6; ++y)
     for(int x = 0; x <= y; ++x )
@@ -77,7 +103,7 @@ return verify;
 }
 
 
-void showPyramid(Celda pyr[][6]){
+void Pyramid::show(){
 stringstream ss;
 for(int y = 0; y < 6; ++y){
         cout<<endl<<endl;
@@ -105,34 +131,24 @@ cout<<endl;
 int main()
 {
     cout <<"---------------------------------------------------"<<endl<< "Piramide Inicial" << endl;
-    Celda pyr[6][6];
-    for(int y = 0; y < 6; y++)
-        for(int x = 0; x <= y; x++ )
-            pyr[x][y] = Celda(x,y);
 
-    pyr[0][0].setValue (52);
-    pyr[0][1].setValue (26);
-    pyr[0][2].setValue (12);
-    pyr[0][3].setValue (3);
-    pyr[0][4].setValue (2);
-    pyr[0][5].setValue (1);
-    showPyramid(pyr);
+    Pyramid pyr;
+    pyr.Setvalues();
+    pyr.show();
 
     cout<<"---------------------------------------------------";
 
-    solvePyramid(pyr);
-    checkPyramid(pyr);
+    pyr.solve();
     cout<<endl;
-    if (checkPyramid(pyr)==1 || CompletedPyramid(pyr)==1)
+    if (pyr.check()==1 || pyr.Completed()==1)
         cout << endl << "No se puede resolver"<<endl;
     else
     {
         cout<<"Piramide Resuelta"<<endl;
-        showPyramid(pyr);
+        pyr.show();
     }
 
     cout<<"---------------------------------------------------"<<endl;
 
     return 0;
 }
-

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+
 using namespace std;
 class Celda{
     public:
@@ -24,8 +25,8 @@ class Celda{
         }
 };
 
-void checkPyramid (Celda pyr[][6]){
-for (int a = 0; a < 5; a++)             //Maximo que se tiene que recorrer la piramide para completarla
+void solvePyramid (Celda pyr[][6]){
+for (int a = 0; a < 5; ++a)             //Maximo que se tiene que recorrer la piramide para completarla
     for(int y = 0; y < 6; ++y)
         for(int x = 0; x <= y; ++x )
         {
@@ -51,22 +52,33 @@ for (int a = 0; a < 5; a++)             //Maximo que se tiene que recorrer la pi
 return;
 }
 
+int checkPyramid (Celda pyr[][6]){
+int vm=0;
+for(int y = 1; y < 6; ++y)
+    for(int x = 0; x <= y; ++x ){
+        if ((pyr[x][y].valor + pyr[x+1][y].valor) != pyr[x][y-1].valor)
+            vm=1;
+    }
+return vm;
+}
+
 int CompletedPyramid (Celda pyr[][6]){
 int verify=0;
-for(int y = 0; y < 6; y++)
-    for(int x = 0; x <= y; x++ )
+for(int y = 0; y < 6; ++y)
+    for(int x = 0; x <= y; ++x )
         if (pyr[x][y].isKnown()==1)
             verify=1;
 return verify;
 }
 
+
 void showPyramid(Celda pyr[][6]){
 stringstream ss;
-for(int y = 0; y < 6; y++){
+for(int y = 0; y < 6; ++y){
         cout<<endl<<endl;
-        for (int j=6; j>y; j--)
+        for (int j=6; j>y; --j)
             cout<<"   ";
-        for(int x = 0; x <= y; x++ )
+        for(int x = 0; x <= y; ++x )
             if (pyr[x][y].valor != NULL)
             {
                 ss.width(6);
@@ -83,7 +95,6 @@ for(int y = 0; y < 6; y++){
             }
 }
 cout<<endl;
-
 }
 
 int main()
@@ -100,13 +111,17 @@ int main()
     pyr[0][3].setValue (5);
     pyr[0][4].setValue (2);
     pyr[0][5].setValue (1);
-    checkPyramid(pyr);
     showPyramid(pyr);
+    
 cout<<"---------------------------------------------------"<<endl;
-    if (!CompletedPyramid(pyr))
-        showPyramid(pyr);
+
+    solvePyramid(pyr);
+    if (checkPyramid(pyr)==1 || CompletedPyramid(pyr)==1)
+        cout << endl << "No se puede resolver";
     else
-        cout << "No se puede resolver";
+        showPyramid(pyr);
+        
 cout<<"---------------------------------------------------"<<endl;
+
     return 0;
 }

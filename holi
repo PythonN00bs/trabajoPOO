@@ -8,7 +8,6 @@ class Celda{
         }
         int valor=NULL, x, y;
 
-    public:
         int setValue (int _valor){
             valor = _valor;
         }
@@ -25,36 +24,30 @@ class Celda{
         }
 };
 
-void checkPyramid (Celda pyr[][6],int change){
-if(change==1){
-    change=0;
-    for(int y = 0; y < 6; y++)
-        for(int x = 0; x <= y; x++ )
+void checkPyramid (Celda pyr[][6]){
+for (int a = 0; a < 5; a++)             //Maximo que se tiene que recorrer la piramide para completarla
+    for(int y = 0; y < 6; ++y)
+        for(int x = 0; x <= y; ++x )
         {
             if (pyr[x][y].isKnown() == 0 && pyr[x+1][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 1)
             {
                 pyr[x][y-1].setValue(pyr[x][y].valor + pyr[x+1][y].valor);
-                change=1;
             }
             else
             {
                 if (pyr[x][y].isKnown() == 0 && pyr[x+1][y].isKnown() == 1 && pyr[x][y-1].isKnown() == 0)
                 {
-                    pyr[x+1][y].setValue(pyr[x][y-1].valor - pyr[x][y].valor);
-                    change=1;
+                        pyr[x+1][y].setValue(pyr[x][y-1].valor - pyr[x][y].valor);
                 }
                 else
                 {
                     if (pyr[x][y].isKnown() == 1 && pyr[x+1][y].isKnown() == 0 && pyr[x][y-1].isKnown() == 0)
                     {
-                        pyr[x][y].setValue(pyr[x][y-1].valor - pyr[x+1][y].valor);
-                        change=1;
+                            pyr[x][y].setValue(pyr[x][y-1].valor - pyr[x+1][y].valor);
                     }
                 }
             }
         }
-checkPyramid (pyr,change);
-}
 return;
 }
 
@@ -101,12 +94,13 @@ int main()
         for(int x = 0; x <= y; x++ )
             pyr[x][y] = Celda(x,y);
 
- pyr[0][0].setValue (52);
+    pyr[0][0].setValue (52);
     pyr[0][1].setValue (26);
     pyr[0][2].setValue (12);
     pyr[0][3].setValue (5);
     pyr[0][4].setValue (2);
     pyr[0][5].setValue (1);
+    checkPyramid(pyr);
     showPyramid(pyr);
 cout<<"---------------------------------------------------"<<endl;
     if (!CompletedPyramid(pyr))
